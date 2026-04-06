@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="myrobot">
+
+  <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="controllers_file" default=""/>
+  <xacro:arg name="robot_ns" default=""/>
+
+  <xacro:include filename="mobilebase.urdf.xacro" />
+  <xacro:include filename="mobilearm.urdf.xacro" />
+  <xacro:include filename="mobile_ros2_control.xacro" />
+  <xacro:include filename="myrobot_sensors.xacro" />
+
+  <xacro:macro name="myrobot" params="prefix:= '' controllers_file:= '' robot_ns:= ''">
+
+    <xacro:mobilebase prefix="${prefix}" />
+    <xacro:mobilearm prefix="${prefix}" />
+    <xacro:myrobot_sensors prefix="${prefix}" />
+    <xacro:mobile_ros2_control
+      prefix="${prefix}"
+      controllers_file="${controllers_file}"
+      robot_ns="${robot_ns}" />
+
+    <joint name="${prefix}base_to_arm" type="fixed">
+      <origin xyz="0.08248 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}mobilebase_link"/>
+      <child link="${prefix}base_link"/>
+    </joint>
+
+  </xacro:macro>
+
+  <xacro:myrobot
+    prefix="$(arg prefix)"
+    controllers_file="$(arg controllers_file)"
+    robot_ns="$(arg robot_ns)" />
+
+</robot>

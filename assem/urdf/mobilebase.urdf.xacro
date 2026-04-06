@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="mobilebase" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="mobilebase" params="prefix:= ''">
+
+    <xacro:property name="basex" value="0"/>
+    <xacro:property name="basey" value="0"/>
+    <xacro:property name="basez" value="0"/>
+
+    <!-- ================== BASE ================== -->
+    <link name="${prefix}mobilebase_link">
+      <inertial>
+        <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        <mass value="5.55"/>
+        <inertia ixx="0.0270" ixy="0" ixz="0"
+                 iyy="0.0462" iyz="0" izz="0.0640"/>
+      </inertial>
+
+      <visual>
+        <origin xyz="-0.083267 -0.23053 -0.30582" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/mobilebase_link.STL"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.79216 0.81961 0.93333 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="-0.083267 -0.23053 -0.30582" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/mobilebase_link.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- ================== LIDAR ================== -->
+    <link name="${prefix}lidar_link">
+      <inertial>
+        <origin xyz="-0.011858 0.00043575 -0.024331" rpy="0 0 0"/>
+        <mass value="0.389244"/>
+        <inertia ixx="2.3572E-05" ixy="-1.0393E-07" ixz="2.9228E-07"
+                 iyy="3.7644E-05" iyz="-9.4265E-09" izz="5.8788E-05"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/lidar_link.STL"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.75294 0.75294 0.75294 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/lidar_link.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}lidar_joint" type="fixed">
+      <origin xyz="-0.11179 0 0.14263" rpy="0 0 0"/>
+      <parent link="${prefix}mobilebase_link"/>
+      <child link="${prefix}lidar_link"/>
+    </joint>
+
+    <!-- ================== MPU ================== -->
+    <link name="${prefix}mpu_link">
+      <inertial>
+        <origin xyz="-0.0010413 3.4299E-05 -0.00029728" rpy="0 0 0"/>
+        <mass value="0.01061904"/>
+        <inertia ixx="2.0946E-08" ixy="-1.3938E-10" ixz="-1.4232E-09"
+                 iyy="1.444E-08" iyz="-1.1582E-10" izz="3.3356E-08"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/mpu_link.STL"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.79216 0.81961 0.93333 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/mpu_link.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}mpu_joint" type="fixed">
+      <origin xyz="0.1879 0 0.01954" rpy="0 0 0"/>
+      <parent link="${prefix}mobilebase_link"/>
+      <child link="${prefix}mpu_link"/>
+    </joint>
+
+    <!-- ================== WHEELS ================== -->
+
+    <!-- FRONT LEFT -->
+    <link name="${prefix}frleft_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.2"/>
+        <inertia ixx="0.000147" ixy="0" ixz="0"
+                 iyy="0.000147" iyz="0" izz="0.000240"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/frleft_link.STL"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.79216 0.81961 0.93333 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/frleft_link.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}frleft_joint" type="continuous">
+      <origin xyz="0.13973 0.10403 0.04624" rpy="-1.57 0 0"/>
+      <parent link="${prefix}mobilebase_link"/>
+      <child link="${prefix}frleft_link"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.1" friction="0.1"/>
+    </joint>
+
+    <!-- FRONT RIGHT -->
+    <link name="${prefix}frright_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.2"/>
+        <inertia ixx="0.000147" ixy="0" ixz="0"
+                 iyy="0.000147" iyz="0" izz="0.000240"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/frright_link.STL"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.79216 0.81961 0.93333 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/frright_link.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}frright_joint" type="continuous">
+      <origin xyz="0.13973 -0.10403 0.04624" rpy="1.57 0 0"/>
+      <parent link="${prefix}mobilebase_link"/>
+      <child link="${prefix}frright_link"/>
+      <axis xyz="0 0 -1"/>
+      <dynamics damping="0.1" friction="0.1"/>
+    </joint>
+
+    <!-- BACK LEFT -->
+    <link name="${prefix}baleft_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.2"/>
+        <inertia ixx="0.000147" ixy="0" ixz="0"
+                 iyy="0.000147" iyz="0" izz="0.000240"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/baleft_link.STL"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.79216 0.81961 0.93333 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/baleft_link.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}baleft_joint" type="continuous">
+      <origin xyz="-0.13973 -0.10403 0.04624" rpy="1.57 0 0"/>
+      <parent link="${prefix}mobilebase_link"/>
+      <child link="${prefix}baleft_link"/>
+      <axis xyz="0 0 -1"/>
+      <dynamics damping="0.1" friction="0.1"/>
+    </joint>
+
+    <!-- BACK RIGHT -->
+    <link name="${prefix}baright_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.2"/>
+        <inertia ixx="0.000147" ixy="0" ixz="0"
+                 iyy="0.000147" iyz="0" izz="0.000240"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/baright_link.STL"/>
+        </geometry>
+        <material name="">
+          <color rgba="0.79216 0.81961 0.93333 1"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://assem/meshes/baright_link.STL"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}baright_joint" type="continuous">
+      <origin xyz="-0.13973 0.10403 0.04624" rpy="-1.57 0 0"/>
+      <parent link="${prefix}mobilebase_link"/>
+      <child link="${prefix}baright_link"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.1" friction="0.1"/>
+    </joint>
+
+    <!-- ================== GAZEBO FRICTION ================== -->
+    <gazebo reference="${prefix}frleft_link">
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+    </gazebo>
+
+    <gazebo reference="${prefix}frright_link">
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+    </gazebo>
+
+    <gazebo reference="${prefix}baleft_link">
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+    </gazebo>
+
+    <gazebo reference="${prefix}baright_link">
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>
