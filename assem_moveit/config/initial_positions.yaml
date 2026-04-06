@@ -1,0 +1,9 @@
+# Default initial positions for myrobot's ros2_control fake system
+
+initial_positions:
+  r1_joint_1: 0
+  r1_joint_2: 0
+  r1_joint_3: 0
+  r1_joint_4: 0
+  r1_joint_5: 0
+  r1_joint_5_5: 0

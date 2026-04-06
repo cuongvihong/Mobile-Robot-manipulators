@@ -1,0 +1,40 @@
+nodes:
+  A: [0.0, 0.0]
+  B: [1.0, 0.0]
+  C: [2.0, 0.0]
+  D: [3.0, 0.0]
+
+  E: [0.0, 1.0]
+  F: [1.0, 1.0]
+  G: [2.0, 1.0]
+  H: [3.0, 1.0]
+
+  I: [0.0, 2.0]
+  J: [1.0, 2.0]
+  K: [2.0, 2.0]
+  L: [3.0, 2.0]
+
+edges:
+  - {from: A, to: B}
+  - {from: B, to: C}
+  - {from: C, to: D}
+
+  - {from: E, to: F}
+  - {from: F, to: G}
+  - {from: G, to: H}
+
+  - {from: I, to: J}
+  - {from: J, to: K}
+  - {from: K, to: L}
+
+  - {from: A, to: E}
+  - {from: E, to: I}
+
+  - {from: B, to: F}
+  - {from: F, to: J}
+
+  - {from: C, to: G}
+  - {from: G, to: K}
+
+  - {from: D, to: H}
+  - {from: H, to: L}
